@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 public class MemberDAO {
+
     // JDBC 관련 변수
     private Connection conn = null;
     private PreparedStatement stmt = null;

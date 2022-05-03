@@ -1,6 +1,8 @@
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
+
 
 public class MemberTest {
         static String memberID;
@@ -20,10 +22,11 @@ public class MemberTest {
 
         static int task;
 
-        public static void main (String[]args) throws SQLException, IsEmptyException, ListEmptyException {
+        public static <function> void main (String[]args) throws SQLException, IsEmptyException, ListEmptyException, OverlapIdException {
 
             MemberDAO dao = new MemberDAO();
             MemberVO vo = new MemberVO();
+
 
         System.out.println("#############################");
         System.out.println("### 회원 관리 프로그램 START ##");
@@ -44,11 +47,16 @@ public class MemberTest {
 
                 case 2:
                     try {
-
                         System.out.print("아이디를 입력하세요. (형식 M-00001):");
                         String br = sc.nextLine();
                         memberID = sc.nextLine();
-                        vo.setMEMBER_ID(memberID);
+                        if(checkID(memberID)){
+                            System.out.println(memberID +"가 이미 존재합니다.");
+                            guideLine();
+                            break;
+                        } else{
+                            vo.setMEMBER_ID(memberID);
+                        }
                     }
                     catch (IsEmptyException e) {
                         System.out.println("아이디는 필수입력 항목입니다.");
@@ -56,10 +64,12 @@ public class MemberTest {
                         break;
                     }
 
+
                     try {
                         System.out.print("이름을 입력하세요 :");
                         name = sc.nextLine();
                         vo.setNAME(name);
+
                     } catch (IsEmptyException e) {
                         System.out.println("이름은 필수입력 항목입니다.");
                         guideLine();
@@ -111,6 +121,18 @@ public class MemberTest {
                 System.out.println("#############################");
         }
 
+    }
+    public static boolean checkID(String id) throws ListEmptyException {
+        MemberDAO dao = new MemberDAO();
+        List<MemberVO> memberList = dao.getMemberList();
+        boolean result = false;
+        for (MemberVO member : memberList) {
+            if (member.getMEMBER_ID().equals(id)) {
+                result = true;
+            } else result = false;
+        }
+
+        return result;
     }
 }
 

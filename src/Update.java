@@ -1,6 +1,6 @@
 public class Update {
 
-    public Update(String id, String number) throws IsEmptyException, ListEmptyException {
+    public Update(String id, String number) throws IsEmptyException, ListEmptyException, OverlapIdException {
 
         // 1. StudentDAO 객체를 생성한다.
         MemberDAO dao = new MemberDAO();

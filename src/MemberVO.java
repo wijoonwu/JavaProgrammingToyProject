@@ -1,4 +1,4 @@
-
+import java.util.List;
 
 public class MemberVO {
 
@@ -7,18 +7,23 @@ public class MemberVO {
     private String NAME;
     private String PHONE_NUMBER;
 
+
+    // 2. 목록을 조회한다.
+
+
     public String getMEMBER_ID() {
         return MEMBER_ID;
     }
 
-    public void setMEMBER_ID(String MEMBER_ID) throws IsEmptyException{
-        this.MEMBER_ID = MEMBER_ID;
+    //case2 등록
+    public void setMEMBER_ID(String id) throws IsEmptyException, ListEmptyException,OverlapIdException  {
+        this.MEMBER_ID = id;
         if(MEMBER_ID.equals("")){
             throw new IsEmptyException("필수입력 항목 오류1");
         }
     }
 
-    //case1
+    //case1 목록조회
     public void setMemberId(String MEMBER_ID) {
         this.MEMBER_ID = MEMBER_ID;
     }
@@ -46,10 +51,10 @@ public class MemberVO {
         }
     }
 
-    public MemberVO() {
+    public MemberVO() throws ListEmptyException {
     }
 
-    public MemberVO(String MEMBER_ID, String NAME, String PHONE_NUMBER) {
+    public MemberVO(String MEMBER_ID, String NAME, String PHONE_NUMBER) throws ListEmptyException {
         this.MEMBER_ID = MEMBER_ID;
         this.NAME = NAME;
         this.PHONE_NUMBER = PHONE_NUMBER;
@@ -62,4 +67,5 @@ public class MemberVO {
                 ", name='" + NAME + '\'' +
                 ", phoneNumber='" + PHONE_NUMBER + '\'';
     }
+
 }
