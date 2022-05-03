@@ -67,8 +67,7 @@ public class MemberManager {
                         System.out.println("아이디는 필수입력 항목입니다.");
                         readMenu();
                         break;
-                    }
-                    catch (ListEmptyException l){
+                    } catch (ListEmptyException l) {
                         vo.setMEMBER_ID(memberID);
                     }
 
@@ -87,7 +86,13 @@ public class MemberManager {
                     try {
                         System.out.print("전화번호를 입력하세요 :");
                         phoneNumber = sc.nextLine();
-                        vo.setPHONE_NUMBER(phoneNumber);
+
+                        if(!PhoneNumberCheck(phoneNumber)){
+                            System.out.println("전화번호는 두 개의 '-'를 포함하여 총 13개의 문자로 구성해야 합니다.");
+                            readMenu();
+                            break;
+                        } else vo.setPHONE_NUMBER(phoneNumber);
+
                     } catch (IsEmptyException e) {
                         System.out.println("전화번호는 필수입력 항목입니다.");
                         readMenu();
@@ -146,15 +151,22 @@ public class MemberManager {
         return result;
     }
 
-    public static boolean IdFormCheck(String memberId){
-        String check = memberId.substring(0,2);
+    public static boolean IdFormCheck(String memberId) {
+        String check = memberId.substring(0, 2);
         boolean ok;
-        if(check.equals("M-") && memberId.length()==7){
-            ok=true;
+        if (check.equals("M-") && memberId.length() == 7) {
+            ok = true;
+        } else ok = false;
+        return ok;
+    }
+
+    public static boolean PhoneNumberCheck(String phoneNumber){
+        boolean ok;
+        if(phoneNumber.contains("-") && phoneNumber.length() == 13){
+            ok = true;
         } else ok = false;
         return ok;
     }
 }
-
 
 
