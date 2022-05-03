@@ -120,6 +120,6 @@ public class MemberDAO {
         }
 
         System.out.println("현재 등록된 회원 목록입니다.");
-        System.out.print("---> Member" + memberList);
+        System.out.println("---> Member" + memberList);
     }
 }

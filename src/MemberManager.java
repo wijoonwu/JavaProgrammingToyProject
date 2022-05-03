@@ -51,10 +51,15 @@ public class MemberManager {
                         String br = sc.nextLine();
                         memberID = sc.nextLine();
 
-                        if (checkID(memberID)) {
+                        if (overlapCheck(memberID)) {
                             System.out.println(memberID + "가 이미 존재합니다.");
                             readMenu();
                             break;
+                        } else if (!IdFormCheck(memberID)) {
+                            System.out.println("아이디는 'M-'로 시작해야 하며, M-를 포함하여 7개의 문자로 구성해야 합니다.");
+                            readMenu();
+                            break;
+
                         } else {
                             vo.setMEMBER_ID(memberID);
                         }
@@ -127,7 +132,7 @@ public class MemberManager {
 
     }
 
-    public static boolean checkID(String memberId) throws ListEmptyException {
+    public static boolean overlapCheck(String memberId) throws ListEmptyException {
         MemberDAO dao = new MemberDAO();
 
         List<MemberVO> memberList = dao.getMemberList();
@@ -139,6 +144,15 @@ public class MemberManager {
         }
 
         return result;
+    }
+
+    public static boolean IdFormCheck(String memberId){
+        String check = memberId.substring(0,2);
+        boolean ok;
+        if(check.equals("M-") && memberId.length()==7){
+            ok=true;
+        } else ok = false;
+        return ok;
     }
 }
 
