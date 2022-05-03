@@ -71,8 +71,33 @@ public class MemberDAO {
 
 
     // 회원목록 조회
-    public List<MemberVO> getMemberList() throws ListEmptyException {
+    public List<MemberVO> getMemberList()  {
         List<MemberVO> memberList = new ArrayList<MemberVO>();
+        try {
+            conn = JDBCUtil.getConnection();
+            stmt = conn.prepareStatement(MEMBER_LIST);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                MemberVO memberVO = new MemberVO();
+                memberVO.setMemberId(rs.getString("MEMBER_ID"));
+                memberVO.setNAME(rs.getString("NAME"));
+                memberVO.setPHONE_NUMBER(rs.getString("PHONE_NUMBER"));
+                memberList.add(memberVO);
+            }
+
+        } catch (SQLException | IsEmptyException e) {
+            e.printStackTrace();
+        } catch (ListEmptyException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, stmt, conn);
+        }
+
+        return memberList;
+    }
+
+    public void getMemList() throws ListEmptyException {
+        List<MemberVO> memberList = new ArrayList<>();
         try {
             conn = JDBCUtil.getConnection();
             stmt = conn.prepareStatement(MEMBER_LIST);
@@ -96,8 +121,6 @@ public class MemberDAO {
         }
 
         System.out.println("현재 등록된 회원 목록입니다.");
-        System.out.print("---> Member");
-        return memberList;
+        System.out.print("---> Member" + memberList);
     }
-
 }

@@ -37,7 +37,7 @@ public class MemberTest {
             switch (task) {
                 case 1:
                     try {
-                        System.out.println(dao.getMemberList());
+                        dao.getMemList();
                     } catch (ListEmptyException e) {
                         System.out.println("등록된 회원이 없습니다.");
                     } finally {
@@ -117,7 +117,6 @@ public class MemberTest {
                     break;
 
             }
-
             if (task == 0) {
                 System.out.println("#############################");
                 System.out.println("### GOOD-BYE 프로그램 종료 ###");
@@ -128,13 +127,13 @@ public class MemberTest {
 
     }
 
-    public static boolean checkID(String id) throws ListEmptyException {
+    public static boolean checkID(String memberId) throws ListEmptyException {
         MemberDAO dao = new MemberDAO();
 
         List<MemberVO> memberList = dao.getMemberList();
         boolean result = false;
         for (MemberVO member : memberList) {
-            if (member.getMEMBER_ID().equals(id)) {
+            if (member.getMEMBER_ID().equals(memberId)) {
                 result = true;
             } else result = false;
         }
