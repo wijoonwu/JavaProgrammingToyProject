@@ -182,7 +182,7 @@ public class MemberManager {
         return ok;
     }
 
-    // 회원등록 시 ID 형식 체크 ("M-"로 시작하는 7자리 문자열)
+    // 회원등록 시 ID 형식 체크
     public static boolean IdFormCheck(String memberId) {
         String check = memberId.substring(0, 2);
         boolean ok;
