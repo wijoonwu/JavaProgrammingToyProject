@@ -124,6 +124,7 @@ public class MemberManager {
                     break;
 
                 default:
+                    readMenu();
                     break;
 
             }
@@ -165,6 +166,22 @@ public class MemberManager {
         if(phoneNumber.contains("-") && phoneNumber.length() == 13){
             ok = true;
         } else ok = false;
+        return ok;
+    }
+
+    public static boolean UpdateCheck(){
+        boolean ok;
+        if(){
+            ok = true;
+        }
+        return ok;
+    }
+
+    public static boolean DeleteCheck(){
+        boolean ok;
+        if(){
+            ok = true;
+        }
         return ok;
     }
 }
