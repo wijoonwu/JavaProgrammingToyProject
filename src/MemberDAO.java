@@ -84,7 +84,6 @@ public class MemberDAO {
                 memberVO.setPHONE_NUMBER(rs.getString("PHONE_NUMBER"));
                 memberList.add(memberVO);
             }
-
         } catch (SQLException | IsEmptyException e) {
             e.printStackTrace();
         } catch (ListEmptyException e) {

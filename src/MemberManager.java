@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class MemberTest {
+public class MemberManager {
     static String memberID;
     static String name;
     static String phoneNumber;
     static Scanner sc = new Scanner(System.in);
 
-    public static void guideLine() {
+    public static void readMenu() {
 
         System.out.print("목록을 원하시면 1번을 입력하세요.\n" +
                 "등록을 원하시면 2번을 입력하세요.\n" +
@@ -31,7 +31,7 @@ public class MemberTest {
         System.out.println("#############################");
         System.out.println("### 회원 관리 프로그램 START ##");
         System.out.println("#############################");
-        guideLine();
+        readMenu();
 
         while (true) {
             switch (task) {
@@ -41,7 +41,7 @@ public class MemberTest {
                     } catch (ListEmptyException e) {
                         System.out.println("등록된 회원이 없습니다.");
                     } finally {
-                        guideLine();
+                        readMenu();
                         break;
                     }
 
@@ -53,14 +53,14 @@ public class MemberTest {
 
                         if (checkID(memberID)) {
                             System.out.println(memberID + "가 이미 존재합니다.");
-                            guideLine();
+                            readMenu();
                             break;
                         } else {
                             vo.setMEMBER_ID(memberID);
                         }
                     } catch (IsEmptyException e) {
                         System.out.println("아이디는 필수입력 항목입니다.");
-                        guideLine();
+                        readMenu();
                         break;
                     }
                     catch (ListEmptyException l){
@@ -75,7 +75,7 @@ public class MemberTest {
 
                     } catch (IsEmptyException e) {
                         System.out.println("이름은 필수입력 항목입니다.");
-                        guideLine();
+                        readMenu();
                         break;
                     }
 
@@ -85,12 +85,12 @@ public class MemberTest {
                         vo.setPHONE_NUMBER(phoneNumber);
                     } catch (IsEmptyException e) {
                         System.out.println("전화번호는 필수입력 항목입니다.");
-                        guideLine();
+                        readMenu();
                         break;
                     }
                     dao.insertMember(vo);
                     System.out.println("---> 회원가입에 성공하셨습니다.");
-                    guideLine();
+                    readMenu();
                     break;
 
 
@@ -102,7 +102,7 @@ public class MemberTest {
                     System.out.println("---> 회원수정에 성공하셨습니다.");
 
                     new Update(editMemberID, editPhoneNumber);
-                    guideLine();
+                    readMenu();
                     break;
 
                 case 4:
@@ -110,7 +110,7 @@ public class MemberTest {
                     String delMemberID = sc.next();
                     new Delete(delMemberID);
                     System.out.println(delMemberID + "회원 삭제에 성공하셨습니다.");
-                    guideLine();
+                    readMenu();
                     break;
 
                 default:
