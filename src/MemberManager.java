@@ -5,9 +5,6 @@ import java.util.Scanner;
 
 
 public class MemberManager {
-    static String memberID;
-    static String name;
-    static String phoneNumber;
     static Scanner sc = new Scanner(System.in);
 
     public static void readMenu() {
@@ -46,12 +43,13 @@ public class MemberManager {
                     }
 
                 case 2:
+                    String memberID = null;
                     try {
                         System.out.print("아이디를 입력하세요. (형식 M-00001):");
                         String br = sc.nextLine();
                         memberID = sc.nextLine();
 
-                        if (overlapCheck(memberID)) {
+                        if (idExistsCheck(memberID)) {
                             System.out.println(memberID + "가 이미 존재합니다.");
                             readMenu();
                             break;
@@ -74,7 +72,7 @@ public class MemberManager {
 
                     try {
                         System.out.print("이름을 입력하세요 :");
-                        name = sc.nextLine();
+                        String name = sc.nextLine();
                         vo.setNAME(name);
 
                     } catch (IsEmptyException e) {
@@ -85,9 +83,9 @@ public class MemberManager {
 
                     try {
                         System.out.print("전화번호를 입력하세요 :");
-                        phoneNumber = sc.nextLine();
+                        String phoneNumber = sc.nextLine();
 
-                        if(!PhoneNumberCheck(phoneNumber)){
+                        if (!PhoneNumberCheck(phoneNumber)) {
                             System.out.println("전화번호는 두 개의 '-'를 포함하여 총 13개의 문자로 구성해야 합니다.");
                             readMenu();
                             break;
@@ -107,6 +105,11 @@ public class MemberManager {
                 case 3:
                     System.out.print("수정할 아이디를 입력하세요. (형식 M-00001):");
                     String editMemberID = sc.next();
+                    if (!idExistsCheck(editMemberID)) {
+                        System.out.printf("수정할 %s회원 정보가 존재하지 않습니다.\n", editMemberID);
+                        readMenu();
+                        break;
+                    }
                     System.out.print("수정할 전화번호를 입력하세요 :");
                     String editPhoneNumber = sc.next();
                     System.out.println("---> 회원수정에 성공하셨습니다.");
@@ -118,6 +121,11 @@ public class MemberManager {
                 case 4:
                     System.out.print("삭제할 아이디를 입력하세요. (형식 M-00001):");
                     String delMemberID = sc.next();
+                    if (!idExistsCheck(delMemberID)) {
+                        System.out.printf("삭제할 %s회원 정보가 존재하지 않습니다.\n", delMemberID);
+                        readMenu();
+                        break;
+                    }
                     new Delete(delMemberID);
                     System.out.println(delMemberID + "회원 삭제에 성공하셨습니다.");
                     readMenu();
@@ -138,7 +146,7 @@ public class MemberManager {
 
     }
 
-    public static boolean overlapCheck(String memberId) throws ListEmptyException {
+    public static boolean idExistsCheck(String memberId) throws ListEmptyException {
         MemberDAO dao = new MemberDAO();
 
         List<MemberVO> memberList = dao.getMemberList();
@@ -169,21 +177,7 @@ public class MemberManager {
         return ok;
     }
 
-    public static boolean UpdateCheck(){
-        boolean ok;
-        if(){
-            ok = true;
-        }
-        return ok;
-    }
 
-    public static boolean DeleteCheck(){
-        boolean ok;
-        if(){
-            ok = true;
-        }
-        return ok;
-    }
 }
 
 
