@@ -101,20 +101,17 @@ public class MemberManager {
                     readMenu();
                     break;
 
-
                 case 3:
                     System.out.print("수정할 아이디를 입력하세요. (형식 M-00001):");
                     String editMemberID = sc.next();
-                    if (!idExistsCheck(editMemberID)) {
+                    if (idExistsCheck(editMemberID)) {
+                        System.out.print("수정할 전화번호를 입력하세요 :");
+                        String editPhoneNumber = sc.next();
+                        System.out.println("---> 회원수정에 성공하셨습니다.");
+                        new Update(editMemberID, editPhoneNumber);
+                    } else {
                         System.out.printf("수정할 %s회원 정보가 존재하지 않습니다.\n", editMemberID);
-                        readMenu();
-                        break;
                     }
-                    System.out.print("수정할 전화번호를 입력하세요 :");
-                    String editPhoneNumber = sc.next();
-                    System.out.println("---> 회원수정에 성공하셨습니다.");
-
-                    new Update(editMemberID, editPhoneNumber);
                     readMenu();
                     break;
 
@@ -148,32 +145,30 @@ public class MemberManager {
 
     public static boolean idExistsCheck(String memberId) throws ListEmptyException {
         MemberDAO dao = new MemberDAO();
-
         List<MemberVO> memberList = dao.getMemberList();
-        boolean result = false;
+        boolean ok = false;
+        int i = 0;
         for (MemberVO member : memberList) {
-            if (member.getMEMBER_ID().equals(memberId)) {
-                result = true;
-            } else result = false;
+            ok = member.getMEMBER_ID().equals(memberId);
+            if(ok){
+                i++;
+            }
+        } if (i>0){
+            ok = true;
         }
-
-        return result;
+        return ok;
     }
 
     public static boolean IdFormCheck(String memberId) {
         String check = memberId.substring(0, 2);
         boolean ok;
-        if (check.equals("M-") && memberId.length() == 7) {
-            ok = true;
-        } else ok = false;
+        ok = check.equals("M-") && memberId.length() == 7;
         return ok;
     }
 
-    public static boolean PhoneNumberCheck(String phoneNumber){
+    public static boolean PhoneNumberCheck(String phoneNumber) {
         boolean ok;
-        if(phoneNumber.contains("-") && phoneNumber.length() == 13){
-            ok = true;
-        } else ok = false;
+        ok = phoneNumber.contains("-") && phoneNumber.length() == 13;
         return ok;
     }
 
