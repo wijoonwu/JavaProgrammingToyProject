@@ -41,6 +41,9 @@ public class MemberManager {
 
         while (true) {
             switch (task) {
+
+
+                //회원 목록 조회
                 case 1:
                     try {
                         List<MemberVO> memberList = dao.getMemberList();
@@ -54,6 +57,7 @@ public class MemberManager {
 
                     break;
 
+                 //  회원 등록
                 case 2:
                     String memberID = null;
                     try {
@@ -113,6 +117,7 @@ public class MemberManager {
                     readMenu();
                     break;
 
+                // 회원 정보 수정
                 case 3:
                     System.out.print("수정할 아이디를 입력하세요. (형식 M-00001):");
                     String editMemberID = sc.next();
@@ -127,6 +132,7 @@ public class MemberManager {
                     readMenu();
                     break;
 
+                // 회원 삭제
                 case 4:
                     System.out.print("삭제할 아이디를 입력하세요. (형식 M-00001):");
                     String delMemberID = sc.next();
@@ -145,6 +151,7 @@ public class MemberManager {
                     break;
 
             }
+            // 종료
             if (task == 0) {
                 System.out.print("""
                 #############################
@@ -157,6 +164,7 @@ public class MemberManager {
 
     }
 
+    // ID 중복 체크 및 회원 수정, 회원 삭제 시 ID 존재 검증
     public static boolean idExistsCheck(String memberId) throws ListEmptyException {
         MemberDAO dao = new MemberDAO();
         List<MemberVO> memberList = dao.getMemberList();
@@ -174,6 +182,7 @@ public class MemberManager {
         return ok;
     }
 
+    // 회원등록 시 ID 형식 체크 ("M-"로 시작하는 7자리 문자열)
     public static boolean IdFormCheck(String memberId) {
         String check = memberId.substring(0, 2);
         boolean ok;
@@ -181,6 +190,7 @@ public class MemberManager {
         return ok;
     }
 
+    // 회원등록 시 전화번호 형식 체크
     public static boolean PhoneNumberCheck(String phoneNumber) {
         boolean ok;
         ok = phoneNumber.contains("-") && phoneNumber.length() == 13;
