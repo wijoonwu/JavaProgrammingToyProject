@@ -16,9 +16,9 @@ public class MemberVO {
     }
 
     //case2 등록
-    public void setMEMBER_ID(String id) throws IsEmptyException, ListEmptyException,OverlapIdException  {
+    public void setMEMBER_ID(String id) throws IsEmptyException, ListEmptyException, OverlapIdException {
         this.MEMBER_ID = id;
-        if(MEMBER_ID.equals("")){
+        if (MEMBER_ID.equals("")) {
             throw new IsEmptyException("필수입력 항목 오류1");
         }
     }
@@ -34,7 +34,7 @@ public class MemberVO {
 
     public void setNAME(String NAME) throws IsEmptyException {
         this.NAME = NAME;
-        if(NAME.equals("")){
+        if (NAME.equals("")) {
             throw new IsEmptyException("필수입력 항목 오류2");
         }
     }
@@ -46,7 +46,7 @@ public class MemberVO {
 
     public void setPHONE_NUMBER(String PHONE_NUMBER) throws IsEmptyException {
         this.PHONE_NUMBER = PHONE_NUMBER;
-        if(PHONE_NUMBER.equals("")){
+        if (PHONE_NUMBER.equals("")) {
             throw new IsEmptyException("필수입력 항목 오류3");
         }
     }
@@ -64,8 +64,8 @@ public class MemberVO {
     public String toString() {
         return
                 "memberId='" + MEMBER_ID + '\'' +
-                ", name='" + NAME + '\'' +
-                ", phoneNumber='" + PHONE_NUMBER + '\'';
+                        ", name='" + NAME + '\'' +
+                        ", phoneNumber='" + PHONE_NUMBER + '\'';
     }
 
 }
