@@ -19,7 +19,7 @@ public class MemberManager {
 
     static int task;
 
-    public static <function> void main(String[] args) throws SQLException, IsEmptyException, ListEmptyException, OverlapIdException {
+    public static <function> void main(String[] args) throws SQLException, IsEmptyException, ListEmptyException {
 
         MemberDAO dao = new MemberDAO();
         MemberVO vo = new MemberVO();
@@ -150,10 +150,11 @@ public class MemberManager {
         int i = 0;
         for (MemberVO member : memberList) {
             ok = member.getMEMBER_ID().equals(memberId);
-            if(ok){
+            if (ok) {
                 i++;
             }
-        } if (i>0){
+        }
+        if (i > 0) {
             ok = true;
         }
         return ok;

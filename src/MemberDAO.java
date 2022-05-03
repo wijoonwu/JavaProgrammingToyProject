@@ -71,7 +71,7 @@ public class MemberDAO {
 
 
     // 회원목록 조회
-    public List<MemberVO> getMemberList()  {
+    public List<MemberVO> getMemberList() {
         List<MemberVO> memberList = new ArrayList<MemberVO>();
         try {
             conn = JDBCUtil.getConnection();

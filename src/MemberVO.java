@@ -16,7 +16,7 @@ public class MemberVO {
     }
 
     //case2 등록
-    public void setMEMBER_ID(String memberId) throws IsEmptyException, ListEmptyException, OverlapIdException {
+    public void setMEMBER_ID(String memberId) throws IsEmptyException, ListEmptyException {
         this.MEMBER_ID = memberId;
         if (MEMBER_ID.equals("")) {
             throw new IsEmptyException("필수입력 항목 오류1");

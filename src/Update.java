@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class Update {
-    public Update(String memberID, String phoneNumber) throws IsEmptyException, ListEmptyException, OverlapIdException {
+    public Update(String memberID, String phoneNumber) throws IsEmptyException, ListEmptyException {
 
         MemberDAO dao = new MemberDAO();
         List<MemberVO> memberList = dao.getMemberList();
