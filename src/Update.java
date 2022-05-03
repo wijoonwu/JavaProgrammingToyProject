@@ -1,18 +1,19 @@
-public class Update {
+import java.util.List;
 
+public class Update {
     public Update(String id, String number) throws IsEmptyException, ListEmptyException, OverlapIdException {
 
-        // 1. StudentDAO 객체를 생성한다.
-        MemberDAO dao = new MemberDAO();
+            MemberDAO dao = new MemberDAO();
+            List<MemberVO> memberList = dao.getMemberList();
+            for (MemberVO member : memberList) {
+                if (member.getMEMBER_ID().equals(id)) {
+                    member.setPHONE_NUMBER(number);
+                    dao.updateMember(member);
+                }
+            }
+        }
 
-        // 2. 회원 정보를 수정한다.
-        MemberVO vo = new MemberVO();
-
-        vo.setMEMBER_ID(id);
-        vo.setPHONE_NUMBER(number);
-        dao.updateMember(vo);
-
-    }
+        }
 
 
-    }
+

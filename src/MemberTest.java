@@ -37,6 +37,8 @@ public class MemberTest {
             switch (task) {
                 case 1:
                     try {
+                        System.out.println("현재 등록된 회원 목록입니다.");
+                        System.out.print("---> Member");
                         System.out.println(dao.getMemberList());
                     } catch (ListEmptyException e) {
                         System.out.println("등록된 회원이 없습니다.");

@@ -93,13 +93,9 @@ public class MemberDAO {
 
         if(memberList.isEmpty()){
             throw new ListEmptyException("회원 조회 오류");
-        } else {
-            System.out.println("현재 등록된 회원 목록입니다.");
-            System.out.print("---> Member");
-            return memberList;
         }
 
-
+        return memberList;
     }
 
 }
