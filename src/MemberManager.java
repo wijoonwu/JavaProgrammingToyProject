@@ -5,42 +5,54 @@ import java.util.Scanner;
 
 
 public class MemberManager {
-    static Scanner sc = new Scanner(System.in);
+    private static Scanner sc;
+    private static int task ;
+
+    public MemberManager() {
+        sc = new Scanner(System.in);
+    }
 
     public static void readMenu() {
 
-        System.out.print("목록을 원하시면 1번을 입력하세요.\n" +
-                "등록을 원하시면 2번을 입력하세요.\n" +
-                "수정을 원하시면 3번을 입력하세요.\n" +
-                "삭제를 원하시면 4번을 입력하세요.\n" +
-                "종료를 원하시면 0번을 입력하세요.\n");
+        System.out.print("""
+                목록을 원하시면 1번을 입력하세요.
+                등록을 원하시면 2번을 입력하세요.
+                수정을 원하시면 3번을 입력하세요.
+                삭제를 원하시면 4번을 입력하세요.
+                종료를 원하시면 0번을 입력하세요.
+                """);
+        new MemberManager();
         task = sc.nextInt();
+
     }
 
-    static int task;
 
     public static <function> void main(String[] args) throws SQLException, IsEmptyException, ListEmptyException {
 
         MemberDAO dao = new MemberDAO();
         MemberVO vo = new MemberVO();
 
-
-        System.out.println("#############################");
-        System.out.println("### 회원 관리 프로그램 START ##");
-        System.out.println("#############################");
+        System.out.print("""
+                #############################
+                ### 회원 관리 프로그램 START ###
+                #############################
+                """);
         readMenu();
 
         while (true) {
             switch (task) {
                 case 1:
                     try {
-                        dao.getMemList();
+                        List<MemberVO> memberList = dao.getMemberList();
+                        System.out.println(memberList);
+
                     } catch (ListEmptyException e) {
                         System.out.println("등록된 회원이 없습니다.");
                     } finally {
                         readMenu();
-                        break;
                     }
+
+                    break;
 
                 case 2:
                     String memberID = null;
@@ -134,9 +146,11 @@ public class MemberManager {
 
             }
             if (task == 0) {
-                System.out.println("#############################");
-                System.out.println("### GOOD-BYE 프로그램 종료 ###");
-                System.out.println("#############################");
+                System.out.print("""
+                #############################
+                ### GOOD-BYE 프로그램 종료 ###
+                #############################
+                """);
                 return;
             }
         }
