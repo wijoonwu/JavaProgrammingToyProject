@@ -1,14 +1,15 @@
-public class UpdateTest {
+public class Update {
 
-    public UpdateTest(String id, String phoneNumber) throws IsEmptyException {
+    public Update(String id, String number) throws IsEmptyException, ListEmptyException {
 
         // 1. StudentDAO 객체를 생성한다.
         MemberDAO dao = new MemberDAO();
 
         // 2. 회원 정보를 수정한다.
         MemberVO vo = new MemberVO();
+
         vo.setMEMBER_ID(id);
-        vo.setPHONE_NUMBER(phoneNumber);
+        vo.setPHONE_NUMBER(number);
         dao.updateMember(vo);
 
     }

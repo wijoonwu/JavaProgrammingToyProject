@@ -1,5 +1,5 @@
-public class DeleteTest {
-    public DeleteTest(String id) throws IsEmptyException{
+public class Delete {
+    public Delete(String id) throws IsEmptyException{
 
         // 1. StudentDAO 객체를 생성한다.
         MemberDAO dao = new MemberDAO();

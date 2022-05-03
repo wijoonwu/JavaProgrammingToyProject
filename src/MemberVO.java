@@ -1,4 +1,4 @@
-import java.sql.SQLException;
+
 
 public class MemberVO {
 
@@ -11,11 +11,16 @@ public class MemberVO {
         return MEMBER_ID;
     }
 
-    public void setMEMBER_ID(String MEMBER_ID) throws IsEmptyException {
+    public void setMEMBER_ID(String MEMBER_ID) throws IsEmptyException{
         this.MEMBER_ID = MEMBER_ID;
         if(MEMBER_ID.equals("")){
-            throw new IsEmptyException("필수입력 항목 오류");
+            throw new IsEmptyException("필수입력 항목 오류1");
         }
+    }
+
+    //case1
+    public void setMemberId(String MEMBER_ID) {
+        this.MEMBER_ID = MEMBER_ID;
     }
 
     public String getNAME() {
@@ -25,7 +30,7 @@ public class MemberVO {
     public void setNAME(String NAME) throws IsEmptyException {
         this.NAME = NAME;
         if(NAME.equals("")){
-            throw new IsEmptyException("필수입력 항목 오류");
+            throw new IsEmptyException("필수입력 항목 오류2");
         }
     }
 
@@ -37,7 +42,7 @@ public class MemberVO {
     public void setPHONE_NUMBER(String PHONE_NUMBER) throws IsEmptyException {
         this.PHONE_NUMBER = PHONE_NUMBER;
         if(PHONE_NUMBER.equals("")){
-            throw new IsEmptyException("필수입력 항목 오류");
+            throw new IsEmptyException("필수입력 항목 오류3");
         }
     }
 

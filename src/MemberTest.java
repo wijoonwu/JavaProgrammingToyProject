@@ -1,4 +1,3 @@
-import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -21,8 +20,7 @@ public class MemberTest {
 
         static int task;
 
-        public static void main (String[]args) throws SQLException, IsEmptyException {
-
+        public static void main (String[]args) throws SQLException, IsEmptyException, ListEmptyException {
 
             MemberDAO dao = new MemberDAO();
             MemberVO vo = new MemberVO();
@@ -37,12 +35,12 @@ public class MemberTest {
                 case 1:
                     try {
                         System.out.println(dao.getMemberList());
-                    } catch (IsEmptyException e) {
+                    } catch (ListEmptyException e) {
                         System.out.println("등록된 회원이 없습니다.");
                     } finally {
                         guideLine();
+                        break;
                     }
-                    break;
 
                 case 2:
                     try {
@@ -74,7 +72,7 @@ public class MemberTest {
                         vo.setPHONE_NUMBER(phoneNumber);
                     }
                     catch (IsEmptyException e) {
-                         System.out.println("전화번호는 필수입력 항목입니다.");
+                        System.out.println("전화번호는 필수입력 항목입니다.");
                         guideLine();
                         break;
                     }
@@ -91,14 +89,14 @@ public class MemberTest {
                     String editPhoneNumber = sc.next();
                     System.out.println("---> 회원수정에 성공하셨습니다.");
 
-                    UpdateTest updateTest = new UpdateTest(editMemberID, editPhoneNumber);
+                    new Update(editMemberID, editPhoneNumber);
                     guideLine();
                     break;
 
                 case 4:
                     System.out.print("삭제할 아이디를 입력하세요. (형식 M-00001):");
                     String delMemberID = sc.next();
-                    DeleteTest deleteTest = new DeleteTest(delMemberID);
+                    new Delete(delMemberID);
                     System.out.println(delMemberID + "회원 삭제에 성공하셨습니다.");
                     guideLine();
                     break;

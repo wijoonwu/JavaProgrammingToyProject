@@ -70,33 +70,35 @@ public class MemberDAO {
 
 
     // 회원목록 조회
-    public List<MemberVO> getMemberList() throws IsEmptyException{
-    List<MemberVO> memberList = new ArrayList<MemberVO>();
+    public List<MemberVO> getMemberList() throws ListEmptyException{
+        List<MemberVO> memberList = new ArrayList<MemberVO>();
         try {
             conn = JDBCUtil.getConnection();
             stmt = conn.prepareStatement(MEMBER_LIST);
             rs = stmt.executeQuery();
                 while (rs.next()) {
                     MemberVO memberVO = new MemberVO();
-                    memberVO.setMEMBER_ID(rs.getString("MEMBER_ID"));
+                    memberVO.setMemberId(rs.getString("MEMBER_ID"));
                     memberVO.setNAME(rs.getString("NAME"));
                     memberVO.setPHONE_NUMBER(rs.getString("PHONE_NUMBER"));
                     memberList.add(memberVO);
                 }
 
-        } catch (SQLException e) {
+        } catch (SQLException | IsEmptyException e) {
             e.printStackTrace();
         } finally {
             JDBCUtil.close(rs, stmt, conn);
         }
 
-        if(memberList.size()==0){
-            throw new IsEmptyException("회원 조회 오류");
-        } else{
+        if(memberList.isEmpty()){
+            throw new ListEmptyException("회원 조회 오류");
+        } else {
             System.out.println("현재 등록된 회원 목록입니다.");
             System.out.print("---> Member");
             return memberList;
         }
+
+
     }
 
 }
