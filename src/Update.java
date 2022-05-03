@@ -6,8 +6,8 @@ public class Update {
         MemberDAO dao = new MemberDAO();
         List<MemberVO> memberList = dao.getMemberList();
         for (MemberVO member : memberList) {
-            if (member.getMEMBER_ID().equals(memberID)) {
-                member.setPHONE_NUMBER(phoneNumber);
+            if (member.getMemberID().equals(memberID)) {
+                member.setPhoneNumber(phoneNumber);
                 dao.updateMember(member);
             }
         }

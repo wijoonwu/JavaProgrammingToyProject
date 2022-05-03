@@ -59,21 +59,21 @@ public class MemberManager {
                             break;
 
                         } else {
-                            vo.setMEMBER_ID(memberID);
+                            vo.setMemberID(memberID);
                         }
                     } catch (IsEmptyException e) {
                         System.out.println("아이디는 필수입력 항목입니다.");
                         readMenu();
                         break;
                     } catch (ListEmptyException l) {
-                        vo.setMEMBER_ID(memberID);
+                        vo.setMemberID(memberID);
                     }
 
 
                     try {
                         System.out.print("이름을 입력하세요 :");
                         String name = sc.nextLine();
-                        vo.setNAME(name);
+                        vo.setName(name);
 
                     } catch (IsEmptyException e) {
                         System.out.println("이름은 필수입력 항목입니다.");
@@ -89,7 +89,7 @@ public class MemberManager {
                             System.out.println("전화번호는 두 개의 '-'를 포함하여 총 13개의 문자로 구성해야 합니다.");
                             readMenu();
                             break;
-                        } else vo.setPHONE_NUMBER(phoneNumber);
+                        } else vo.setPhoneNumber(phoneNumber);
 
                     } catch (IsEmptyException e) {
                         System.out.println("전화번호는 필수입력 항목입니다.");
@@ -149,7 +149,7 @@ public class MemberManager {
         boolean ok = false;
         int i = 0;
         for (MemberVO member : memberList) {
-            ok = member.getMEMBER_ID().equals(memberId);
+            ok = member.getMemberID().equals(memberId);
             if (ok) {
                 i++;
             }

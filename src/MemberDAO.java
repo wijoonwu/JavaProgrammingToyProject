@@ -13,20 +13,20 @@ public class MemberDAO {
     private ResultSet rs = null;
 
     // MEMBER 테이블 관련 SQL 명령어
-    private final String MEMBER_LIST = "select * from MEMBER";
-    private final String MEMBER_INSERT = "insert into MEMBER values(?, ?, ?)";
-    private final String MEMBER_UPDATE = "update MEMBER set PHONE_NUMBER = ? where MEMBER_ID = ?";
-    private final String MEMBER_DELETE = "delete MEMBER where MEMBER_ID = ?";
+    private final String MEMBER_LIST = "SELECT * FROM member";
+    private final String MEMBER_INSERT = "INSERT INTO member VALUES (?, ?, ?)";
+    private final String MEMBER_UPDATE = "UPDATE member set phone_number = ? WHERE member_id = ?";
+    private final String MEMBER_DELETE = "DELETE member WHERE member_id = ?";
 
 
     // MEMBER 테이블 관련 CRUD 메소드
 
     // 회원 삭제
-    public void deleteMember(String MemberID) {
+    public void deleteMember(String memberID) {
         try {
             conn = JDBCUtil.getConnection();
             stmt = conn.prepareStatement(MEMBER_DELETE);
-            stmt.setString(1, MemberID);
+            stmt.setString(1, memberID);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,8 +41,8 @@ public class MemberDAO {
         try {
             conn = JDBCUtil.getConnection();
             stmt = conn.prepareStatement(MEMBER_UPDATE);
-            stmt.setString(1, vo.getPHONE_NUMBER());
-            stmt.setString(2, vo.getMEMBER_ID());
+            stmt.setString(1, vo.getPhoneNumber());
+            stmt.setString(2, vo.getMemberID());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,9 +58,9 @@ public class MemberDAO {
         try {
             conn = JDBCUtil.getConnection();
             stmt = conn.prepareStatement(MEMBER_INSERT);
-            stmt.setString(1, vo.getMEMBER_ID());
-            stmt.setString(2, vo.getNAME());
-            stmt.setString(3, vo.getPHONE_NUMBER());
+            stmt.setString(1, vo.getMemberID());
+            stmt.setString(2, vo.getName());
+            stmt.setString(3, vo.getPhoneNumber());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,8 +80,8 @@ public class MemberDAO {
             while (rs.next()) {
                 MemberVO memberVO = new MemberVO();
                 memberVO.setMemberId(rs.getString("MEMBER_ID"));
-                memberVO.setNAME(rs.getString("NAME"));
-                memberVO.setPHONE_NUMBER(rs.getString("PHONE_NUMBER"));
+                memberVO.setName(rs.getString("NAME"));
+                memberVO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
                 memberList.add(memberVO);
             }
         } catch (SQLException | IsEmptyException e) {
@@ -104,8 +104,8 @@ public class MemberDAO {
             while (rs.next()) {
                 MemberVO memberVO = new MemberVO();
                 memberVO.setMemberId(rs.getString("MEMBER_ID"));
-                memberVO.setNAME(rs.getString("NAME"));
-                memberVO.setPHONE_NUMBER(rs.getString("PHONE_NUMBER"));
+                memberVO.setName(rs.getString("NAME"));
+                memberVO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
                 memberList.add(memberVO);
             }
 

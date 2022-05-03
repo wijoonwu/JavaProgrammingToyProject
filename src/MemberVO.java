@@ -1,71 +1,70 @@
-import java.util.List;
-
 public class MemberVO {
 
     // private 멤버변수 선언
-    private String MEMBER_ID;
-    private String NAME;
-    private String PHONE_NUMBER;
+    private String memberID;
+    private String name;
+    private String phoneNumber;
 
 
     // 2. 목록을 조회한다.
 
 
-    public String getMEMBER_ID() {
-        return MEMBER_ID;
+    public String getMemberID() {
+        return memberID;
     }
 
     //case2 등록
-    public void setMEMBER_ID(String memberId) throws IsEmptyException, ListEmptyException {
-        this.MEMBER_ID = memberId;
-        if (MEMBER_ID.equals("")) {
+    public void setMemberID(String memberId) throws IsEmptyException, ListEmptyException {
+        this.memberID = memberId;
+        if (memberID.equals("")) {
             throw new IsEmptyException("필수입력 항목 오류1");
         }
     }
 
     //case1 목록조회
     public void setMemberId(String MEMBER_ID) {
-        this.MEMBER_ID = MEMBER_ID;
+        this.memberID = MEMBER_ID;
     }
 
-    public String getNAME() {
-        return NAME;
+    public String getName() {
+        return name;
     }
 
-    public void setNAME(String NAME) throws IsEmptyException {
-        this.NAME = NAME;
-        if (NAME.equals("")) {
+    public void setName(String name) throws IsEmptyException {
+        this.name = name;
+        if (name.equals("")) {
             throw new IsEmptyException("필수입력 항목 오류2");
         }
     }
 
-    public String getPHONE_NUMBER() {
-        return PHONE_NUMBER;
+    public String getPhoneNumber() {
+        return phoneNumber;
 
     }
 
-    public void setPHONE_NUMBER(String PHONE_NUMBER) throws IsEmptyException {
-        this.PHONE_NUMBER = PHONE_NUMBER;
-        if (PHONE_NUMBER.equals("")) {
+    public void setPhoneNumber(String phoneNumber) throws IsEmptyException {
+        if (phoneNumber.equals("")) {
             throw new IsEmptyException("필수입력 항목 오류3");
         }
+        this.phoneNumber = phoneNumber;
     }
+
 
     public MemberVO() throws ListEmptyException {
     }
 
-    public MemberVO(String MEMBER_ID, String NAME, String PHONE_NUMBER) throws ListEmptyException {
-        this.MEMBER_ID = MEMBER_ID;
-        this.NAME = NAME;
-        this.PHONE_NUMBER = PHONE_NUMBER;
+    public MemberVO(String memberID, String name, String phoneNumber) throws ListEmptyException {
+        this.memberID = memberID;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
         return
-                "memberId='" + MEMBER_ID + '\'' +
-                        ", name='" + NAME + '\'' +
-                        ", phoneNumber='" + PHONE_NUMBER + '\'';
+                "memberId='" + memberID + '\'' +
+                        ", name='" + name + '\'' +
+                        ", phoneNumber='" + phoneNumber + '\'';
     }
 
 }
