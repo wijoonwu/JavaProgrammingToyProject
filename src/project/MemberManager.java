@@ -1,18 +1,20 @@
+package project;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
-
+import java.util.regex.Pattern;
 
 public class MemberManager {
-    private static Scanner sc;
-    private static int task ;
+    private static final Scanner sc = new Scanner(System.in);
 
-    public MemberManager() {
-        sc = new Scanner(System.in);
-    }
+    static String memberID;
 
-    public static void readMenu() {
+
+    static void readMenu() throws IsEmptyException {
+
+        MemberDAO dao = new MemberDAO();
+        MemberVO vo = new MemberVO();
 
         System.out.print("""
                 목록을 원하시면 1번을 입력하세요.
@@ -21,45 +23,28 @@ public class MemberManager {
                 삭제를 원하시면 4번을 입력하세요.
                 종료를 원하시면 0번을 입력하세요.
                 """);
-        new MemberManager();
-        task = sc.nextInt();
-
-    }
-
-
-    public static <function> void main(String[] args) throws SQLException, IsEmptyException, ListEmptyException {
-
-        MemberDAO dao = new MemberDAO();
-        MemberVO vo = new MemberVO();
-
-        System.out.print("""
-                #############################
-                ### 회원 관리 프로그램 START ###
-                #############################
-                """);
-        readMenu();
+        int task = sc.nextInt();
 
         while (true) {
             switch (task) {
-
-
+                case 0 -> {
+                    return;
+                }
                 //회원 목록 조회
-                case 1:
-                    try {
-                        List<MemberVO> memberList = dao.getMemberList();
-                        System.out.println(memberList);
-
-                    } catch (ListEmptyException e) {
+                case 1 -> {
+                    List<MemberVO> memberList = dao.getMemberList();
+                    if (memberList.isEmpty()) {
                         System.out.println("등록된 회원이 없습니다.");
-                    } finally {
-                        readMenu();
+                    } else {
+                        System.out.println("현재 등록된 회원 목록입니다.");
+                        System.out.print("---> Member");
+                        System.out.println(memberList);
                     }
+                    readMenu();
+                }
 
-                    break;
-
-                 //  회원 등록
-                case 2:
-                    String memberID = null;
+                //  회원 등록
+                case 2 -> {
                     try {
                         System.out.print("아이디를 입력하세요. (형식 M-00001):");
                         String br = sc.nextLine();
@@ -69,23 +54,20 @@ public class MemberManager {
                             System.out.println(memberID + "가 이미 존재합니다.");
                             readMenu();
                             break;
-                        } else if (!IdFormCheck(memberID)) {
+                        } else if (IdFormCheck(memberID)) {
+                            vo.setMemberID(memberID);
+                        } else {
                             System.out.println("아이디는 'M-'로 시작해야 하며, M-를 포함하여 7개의 문자로 구성해야 합니다.");
                             readMenu();
                             break;
 
-                        } else {
-                            vo.setMemberID(memberID);
                         }
-                    } catch (IsEmptyException e) {
+
+                    } catch (Exception e) {
                         System.out.println("아이디는 필수입력 항목입니다.");
                         readMenu();
                         break;
-                    } catch (ListEmptyException l) {
-                        vo.setMemberID(memberID);
                     }
-
-
                     try {
                         System.out.print("이름을 입력하세요 :");
                         String name = sc.nextLine();
@@ -96,44 +78,51 @@ public class MemberManager {
                         readMenu();
                         break;
                     }
+                    System.out.print("전화번호를 입력하세요 :");
+                    String phoneNumber = sc.nextLine();
 
-                    try {
-                        System.out.print("전화번호를 입력하세요 :");
-                        String phoneNumber = sc.nextLine();
-
-                        if (!PhoneNumberCheck(phoneNumber)) {
-                            System.out.println("전화번호는 두 개의 '-'를 포함하여 총 13개의 문자로 구성해야 합니다.");
-                            readMenu();
-                            break;
-                        } else vo.setPhoneNumber(phoneNumber);
-
-                    } catch (IsEmptyException e) {
+                    if(phoneNumber == ""){
                         System.out.println("전화번호는 필수입력 항목입니다.");
                         readMenu();
                         break;
                     }
-                    dao.insertMember(vo);
+                    else if (!PhoneNumberCheck(phoneNumber)) {
+                        System.out.println("전화번호는 두 개의 '-'를 포함하여 총 13개의 문자로 구성해야 합니다.");
+                        readMenu();
+                        break;
+                    } else vo.setPhoneNumber(phoneNumber);
+
+
+                    try {
+                        dao.insertMember(vo);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     System.out.println("---> 회원가입에 성공하셨습니다.");
                     readMenu();
-                    break;
+                }
 
                 // 회원 정보 수정
-                case 3:
+                case 3 -> {
                     System.out.print("수정할 아이디를 입력하세요. (형식 M-00001):");
                     String editMemberID = sc.next();
                     if (idExistsCheck(editMemberID)) {
                         System.out.print("수정할 전화번호를 입력하세요 :");
                         String editPhoneNumber = sc.next();
                         System.out.println("---> 회원수정에 성공하셨습니다.");
-                        new Update(editMemberID, editPhoneNumber);
+                        try {
+                            new Update(editMemberID, editPhoneNumber);
+                        } catch (IsEmptyException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else {
                         System.out.printf("수정할 %s회원 정보가 존재하지 않습니다.\n", editMemberID);
                     }
                     readMenu();
-                    break;
+                }
 
                 // 회원 삭제
-                case 4:
+                case 4 -> {
                     System.out.print("삭제할 아이디를 입력하세요. (형식 M-00001):");
                     String delMemberID = sc.next();
                     if (!idExistsCheck(delMemberID)) {
@@ -141,38 +130,25 @@ public class MemberManager {
                         readMenu();
                         break;
                     }
-                    new Delete(delMemberID);
+                    dao.deleteMember(delMemberID);
                     System.out.println(delMemberID + "회원 삭제에 성공하셨습니다.");
                     readMenu();
-                    break;
-
-                default:
-                    readMenu();
-                    break;
-
-            }
-            // 종료
-            if (task == 0) {
-                System.out.print("""
-                #############################
-                ### GOOD-BYE 프로그램 종료 ###
-                #############################
-                """);
-                return;
+                }
+                default -> readMenu();
             }
         }
 
     }
 
+
     // ID 중복 체크 및 회원 수정, 회원 삭제 시 ID 존재 검증
-    public static boolean idExistsCheck(String memberId) throws ListEmptyException {
+    public static boolean idExistsCheck(String memberId)   {
         MemberDAO dao = new MemberDAO();
         List<MemberVO> memberList = dao.getMemberList();
         boolean ok = false;
         int i = 0;
         for (MemberVO member : memberList) {
-            ok = member.getMemberID().equals(memberId);
-            if (ok) {
+            if (member.getMemberID().equals(memberId)) {
                 i++;
             }
         }
@@ -185,19 +161,14 @@ public class MemberManager {
     // 회원등록 시 ID 형식 체크
     public static boolean IdFormCheck(String memberId) {
         String check = memberId.substring(0, 2);
-        boolean ok;
-        ok = check.equals("M-") && memberId.length() == 7;
-        return ok;
+        return Pattern.matches("^(M)-\\d{5}$",memberId);
     }
 
     // 회원등록 시 전화번호 형식 체크
     public static boolean PhoneNumberCheck(String phoneNumber) {
-        boolean ok;
-        ok = phoneNumber.contains("-") && phoneNumber.length() == 13;
-        return ok;
+        return Pattern.matches("^\\d{3}-\\d{4}-\\d{4}$",phoneNumber);
     }
 
 
 }
-
 

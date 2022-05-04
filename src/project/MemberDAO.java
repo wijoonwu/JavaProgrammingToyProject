@@ -1,3 +1,5 @@
+package project;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -71,7 +73,7 @@ public class MemberDAO {
 
 
     // 회원목록 조회
-    public List<MemberVO> getMemberList() throws ListEmptyException {
+    public List<MemberVO> getMemberList()  {
         List<MemberVO> memberList = new ArrayList<MemberVO>();
         try {
             conn = JDBCUtil.getConnection();
@@ -86,15 +88,10 @@ public class MemberDAO {
             }
         } catch (SQLException | IsEmptyException e) {
             e.printStackTrace();
-        } catch (ListEmptyException e) {
-            throw new RuntimeException(e);
-        } finally {
+        }  finally {
             JDBCUtil.close(rs, stmt, conn);
         }
 
-        if (memberList.isEmpty()) {
-            throw new ListEmptyException("회원 조회 오류");
-        }
         return memberList;
     }
 

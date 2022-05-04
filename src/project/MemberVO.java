@@ -1,3 +1,5 @@
+package project;
+
 public class MemberVO {
 
     // private 멤버변수 선언
@@ -14,7 +16,7 @@ public class MemberVO {
     }
 
     //case2 등록
-    public void setMemberID(String memberId) throws IsEmptyException, ListEmptyException {
+    public void setMemberID(String memberId) throws IsEmptyException {
         this.memberID = memberId;
         if (memberID.equals("")) {
             throw new IsEmptyException("필수입력 항목 오류1");
@@ -50,10 +52,10 @@ public class MemberVO {
     }
 
 
-    public MemberVO() throws ListEmptyException {
+    public MemberVO() {
     }
 
-    public MemberVO(String memberID, String name, String phoneNumber) throws ListEmptyException {
+    public MemberVO(String memberID, String name, String phoneNumber)  {
         this.memberID = memberID;
         this.name = name;
         this.phoneNumber = phoneNumber;
