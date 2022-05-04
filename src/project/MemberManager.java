@@ -119,7 +119,7 @@ public class MemberManager {
         String delMemberID = sc.next();
         if (idExistsCheck(delMemberID)) {
             dao.deleteMember(delMemberID);
-            System.out.println(delMemberID + "회원 삭제에 성공하셨습니다.");
+            System.out.printf("%s 회원 삭제에 성공하셨습니다.\n",delMemberID);
         } else {
             System.out.printf("삭제할 %s회원 정보가 존재하지 않습니다.\n", delMemberID);
         }
