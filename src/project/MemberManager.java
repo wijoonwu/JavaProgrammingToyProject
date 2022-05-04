@@ -145,7 +145,6 @@ public class MemberManager {
 
     // 회원등록 시 ID 형식 체크
     public static boolean IdFormCheck(String memberId) {
-        String check = memberId.substring(0, 2);
         return Pattern.matches("^(M)-\\d{5}$", memberId);
     }
 
