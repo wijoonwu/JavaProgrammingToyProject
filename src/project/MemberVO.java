@@ -16,11 +16,8 @@ public class MemberVO {
     }
 
     //case2 등록
-    public void setMemberID(String memberId) throws IsEmptyException {
+    public void setMemberID(String memberId)  {
         this.memberID = memberId;
-        if (memberID.equals("")) {
-            throw new IsEmptyException("필수입력 항목 오류1");
-        }
     }
 
     //case1 목록조회
@@ -32,11 +29,8 @@ public class MemberVO {
         return name;
     }
 
-    public void setName(String name) throws IsEmptyException {
+    public void setName(String name)  {
         this.name = name;
-        if (name.equals("")) {
-            throw new IsEmptyException("필수입력 항목 오류2");
-        }
     }
 
     public String getPhoneNumber() {
@@ -44,10 +38,7 @@ public class MemberVO {
 
     }
 
-    public void setPhoneNumber(String phoneNumber) throws IsEmptyException {
-        if (phoneNumber.equals("")) {
-            throw new IsEmptyException("필수입력 항목 오류3");
-        }
+    public void setPhoneNumber(String phoneNumber)  {
         this.phoneNumber = phoneNumber;
     }
 
