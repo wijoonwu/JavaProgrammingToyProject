@@ -7,13 +7,8 @@ import java.util.regex.Pattern;
 
 public class MemberManager {
     private static final Scanner sc = new Scanner(System.in);
-    static String memberID;
 
     static void readMenu() {
-
-        MemberDAO dao = new MemberDAO();
-        MemberVO vo = new MemberVO();
-
         while (true) {
             System.out.print("""
                     목록을 원하시면 1번을 입력하세요.
@@ -68,7 +63,7 @@ public class MemberManager {
         try {
             System.out.print("아이디를 입력하세요. (형식 M-00001):");
             String br = sc.nextLine();
-            memberID = sc.nextLine();
+            String memberID = sc.nextLine();
 
             if (idExistsCheck(memberID)) {
                 System.out.printf("%s가 이미 존재합니다.\n", memberID);
