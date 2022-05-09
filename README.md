@@ -13,8 +13,6 @@
 ## 🟧 다이어그램
 ![](https://velog.velcdn.com/images/wijoonwu/post/a14f93b3-1748-48bd-aa5f-1fe7255549c3/image.png)
 
-## 😺 소스 코드
-깃허브 소스코드 : https://github.com/wijoonwu/JavaProgrammingToyProject
 
 ## 💻 결과물
 
